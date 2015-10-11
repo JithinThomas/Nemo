@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp" class="no-js" style="width: 100%; height:100%">
+  <head>
+    <title>Nemo</title>
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+  </head>
+  <body ng-controller="WorkSpaceCtrl" style="width: 100%; height:100%">
+    <script type="text/javascript" src="lib/jquery.min.js"></script>
+    <script type="text/javascript" src="lib/raphael-min.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="app.js"></script>
+    <script src="directives/directives.js"></script>
+    <script src="directives/workspace.js"></script>
+    <script src="workspace/workspace_controller.js"></script>
+
+    <div id="toolbar" style="widht: 100%, height: 50">
+      <button ng-click="foo()">Add Shape</button>
+    </div>
+
+    <div workspace shapes="shapesList"></div>
+  </body>
+</html>
