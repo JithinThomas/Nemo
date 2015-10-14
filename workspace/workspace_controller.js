@@ -1,23 +1,30 @@
 
+var colors = ["red", "green", "blue", "yellow"];
+
 myApp.controller('WorkSpaceCtrl', function($scope) {
   $scope.c = 10;
   $scope.r = 5;
 
   $scope.shapesList = [
-    { "cx" : $scope.c, "cy" : $scope.c, "rx" : $scope.r, "ry": $scope.r, "fill": "red", "i": 0 },
-    { "cx" : $scope.c, "cy" : $scope.c + 10, "rx" : $scope.r, "ry": $scope.r, "fill": "red", "i": 1 },
-    { "cx" : $scope.c, "cy" : $scope.c + 20, "rx" : $scope.r, "ry": $scope.r, "fill": "red", "i": 2 },
-    { "cx" : $scope.c, "cy" : $scope.c + 30, "rx" : $scope.r, "ry": $scope.r, "fill": "red", "i": 3 }
+    new Ellipse( $scope.c, $scope.c, $scope.r, $scope.r ),
+    new Ellipse( $scope.c, $scope.c + 10, $scope.r, $scope.r ),
+    new Ellipse( $scope.c, $scope.c + 20, $scope.r, $scope.r ),
+    new Ellipse( $scope.c, $scope.c + 30, $scope.r, $scope.r )
   ];
 
   $scope.foo = function() {
     $scope.c += 20;
-
-    $scope.shapesList.push({
-      "cx" : $scope.c, "cy" : $scope.c, "rx" : $scope.r, "ry": $scope.r, "fill": "red", "i": $scope.shapesList.length
-    });
+    $scope.shapesList.push( new Ellipse( $scope.c, $scope.c, $scope.r, $scope.r ));
     
-    var i = Math.round( Math.random() * ($scope.shapesList.length - 1));
-    $scope.shapesList[i].cx = $scope.c;
+    var i = rand( $scope.shapesList.length );
+    var s = $scope.shapesList[i];
+    s.cx = $scope.c;
+
+    var j = rand( colors.length );
+    s.fill = colors[j];
   };
 });
+
+function rand(n) {
+  return Math.round( Math.random() * (n - 1));
+}

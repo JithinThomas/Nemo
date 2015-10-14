@@ -1,4 +1,8 @@
 
+//===========================================
+// Workspace directive definition
+//===========================================
+
 directivesModule.directive('workspace', [function() {
   return {
     restrict: 'EA',
@@ -8,16 +12,15 @@ directivesModule.directive('workspace', [function() {
     },
 
     link: function(scope, element, attrs) {
-      scope.canvas = Raphael(100, 10, 750, 700);
+      var w = $("#workspace").width();
+      var h = $("#workspace").height() - $("#toolbar").height();
 
-      scope.shapes.forEach(function(s, i) {
-        scope.$watchCollection('shapes[' + i + ']', function(n) {
-          redrawShape(scope.canvas, n)
-        })
-      });
+      scope.origin = (w/2, h/2);
+      scope.canvas = Raphael(element[0], w, h);
 
       scope.$watchCollection('shapes', function(newVal, oldVal) {
         removeShapes(scope.canvas);
+        drawCoordinateAxes(scope.canvas);
         drawShapes(scope.canvas, newVal);
 
         for (var i = oldVal.length; i < newVal.length; i++) {
@@ -26,6 +29,12 @@ directivesModule.directive('workspace', [function() {
           }, true);
         }
       }, true);
+
+      scope.shapes.forEach(function(s, i) {
+        scope.$watchCollection('shapes[' + i + ']', function(n) {
+          redrawShape(scope.canvas, n)
+        })
+      });
     }
   };
 }]);
@@ -34,8 +43,17 @@ directivesModule.directive('workspace', [function() {
 // Helper functions
 //===========================================
 
-function removeShapes(canvas) {
-  canvas.clear();
+function drawCoordinateAxes(canvas, origin) {
+  var parentWidth = canvas.width;
+  var parentHeight = canvas.height;
+
+  canvas.path("M" + parentWidth/2 + ",0 L" + parentWidth/2 + "," + parentHeight)
+        .attr({ "stroke": "black", "stroke-width": 3 });
+
+  canvas.path("M0," + parentHeight/2 + ", L" + parentWidth + "," + parentHeight/2)
+        .attr({ "stroke": "black", "stroke-width": 3 });
+
+  canvas.text(parentWidth/2 + 17, parentHeight/2 - 10, "origin");
 }
 
 function drawShapes(canvas, shapes) {
@@ -44,9 +62,25 @@ function drawShapes(canvas, shapes) {
   });
 }
 
-function redrawShape(canvas, s) {
-  var id = "s-" + s.i;
+function redrawShape(canvas, attrs) {
+  switch(attrs.type) {
+    case TYPE_ELLIPSE: 
+      redrawEllipse(canvas, attrs);
+      break;
+    default:
+      console.error("Unrecognized shape type: " + attrs.type);
+  }
+}
+
+function redrawEllipse(canvas, attrs) {
+  var id = "s-" + attrs.id;
   $("#" + id).remove();
-  var e = canvas.ellipse( s.cx, s.cy, s.rx, s.ry ).attr({ fill: "darkgreen" });
+
+  var e = canvas.ellipse( attrs.cx, attrs.cy, attrs.rx, attrs.ry )
+                .attr({ fill: attrs.fill });
   $(e.node).attr('id', id);
+}
+
+function removeShapes(canvas) {
+  canvas.clear();
 }
