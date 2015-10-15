@@ -20,7 +20,7 @@ function enableResizingOfCols() {
 }
 
 function main() {
-  enableResizingOfCols();
+  //enableResizingOfCols();
 }
 
 $(document).ready(main);

@@ -8,25 +8,21 @@
 #workspace {
   float: left;
   min-height: inherit;
-  
-  border-width: 1px 5px 1px 0;
-  border-style: solid;
 }
 
 #menu {
-  width: 10%;
-  height: 100%;
-  background-color: yellow;
+  width: 100%;
+  height: 92%;
+  background-color: orange;
 }
 
 #chapter {
-  width: 45%;
-  height: 100%;
-  background-color: yellow;
+  width: 100%;
+  height: 92%;
+  background-color: blue;
 }
 
 #workspace {
-  width: 43%;
-  height: 100%;
-  background-color: yellow;
+  width: 100%;
+  height: 92%;
 }

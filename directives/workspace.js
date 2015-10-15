@@ -43,7 +43,7 @@ directivesModule.directive('workspace', [function() {
 // Helper functions
 //===========================================
 
-function drawCoordinateAxes(canvas, origin) {
+function drawCoordinateAxes(canvas) {
   var parentWidth = canvas.width;
   var parentHeight = canvas.height;
 
@@ -52,8 +52,9 @@ function drawCoordinateAxes(canvas, origin) {
 
   canvas.path("M0," + parentHeight/2 + ", L" + parentWidth + "," + parentHeight/2)
         .attr({ "stroke": "black", "stroke-width": 3 });
+        //.attr({ "stroke": "black", "stroke-width": 3, "stroke-dasharray": "- " });
 
-  canvas.text(parentWidth/2 + 17, parentHeight/2 - 10, "origin");
+  canvas.text(parentWidth/2 + 17, parentHeight/2 - 10, "(0,0)");
 }
 
 function drawShapes(canvas, shapes) {
