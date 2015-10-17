@@ -35,6 +35,7 @@ function Ellipse(cx, cy, rx, ry) {
 
   this.area = (Math.PI * this.rx * this.ry).toFixed(2);
   this.fill = "red";
+  this.equation = "{{(x-" + cx + ")^2} \\over (" + rx + ")^2} + {{(y-" + cy + ")^2} \\over (" + ry + ")^2} = 1";
 }
 
 Ellipse.prototype = Object.create(Shape.prototype);
