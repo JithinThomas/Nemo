@@ -2,7 +2,7 @@
 var colors = ["red", "green", "blue", "yellow"];
 
 myApp.controller('WorkSpaceCtrl', function($scope) {
-  $scope.c = 10;
+  $scope.c = 0;
   $scope.r = 5;
 
   $scope.shapesList = [
