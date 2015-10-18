@@ -24,6 +24,11 @@ myApp.controller('WorkSpaceCtrl', function($scope) {
     s.fill = colors[j];
   };
 
+  $scope.changeShape = function() {
+    $scope.shapesList[$scope.shapesList.length - 1].cx += 20;
+    $scope.shapesList[$scope.shapesList.length - 1].rx += 20;
+  };
+
   $scope.delShape = function() {
     /*
     if ($scope.shapesList.length > 0) {

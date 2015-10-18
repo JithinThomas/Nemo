@@ -98,9 +98,16 @@
                   <button ng-click="delShape()" type="button" class="btn btn-default" disabled>
                     <span class="glyphicon glyphicon-minus"></span>
                   </button>
+                  <button ng-click="changeShape()" type="button" class="btn btn-default">
+                    <span class="glyphicon glyphicon-arrow-right"></span>
+                  </button>
+
                 </div>
                 <div workspace shapes="shapesList" style="border: 1px solid black; border-width: 1 0 0 0; margin-top: 7px;"></div>
-                <div math-bind="shapesList[shapesList.length - 1].equation"></div>
+                <span math-bind="shapesList[shapesList.length - 1].equation"></span></br>
+                <span>Area = {{shapesList[shapesList.length - 1].area}}</span></br>
+                <span>Area Derviation:</span></br>
+                <span math-bind="shapesList[shapesList.length - 1].areaDetail"></span></br>
               </div>
             </div>
           </div>

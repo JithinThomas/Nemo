@@ -18,7 +18,6 @@ var shapeId = 0;
 function Shape() {
   this.id = shapeId++;
 }
-
 Shape.prototype.type = TYPE_GENERIC;
 
 //==============================================
@@ -32,12 +31,29 @@ function Ellipse(cx, cy, rx, ry) {
   this.cy = cy;
   this.rx = rx;
   this.ry = ry;
-
-  this.area = (Math.PI * this.rx * this.ry).toFixed(2);
   this.fill = "red";
-  this.equation = "{{(x-" + cx + ")^2} \\over (" + rx + ")^2} + {{(y-" + cy + ")^2} \\over (" + ry + ")^2} = 1";
 }
 
 Ellipse.prototype = Object.create(Shape.prototype);
-Ellipse.prototype.constructor = Ellipse;
-Ellipse.prototype.type = TYPE_ELLIPSE;
+Object.defineProperties(Ellipse.prototype, {
+  constructor : {
+    value: Ellipse
+  },
+  type : {
+    value: TYPE_ELLIPSE
+  },
+  equation : {
+    "get": function() {return "{{(x-" + this.cx + ")^2} \\over (" + this.rx + ")^2} + {{(y-" + this.cy + ")^2} \\over (" + this.ry + ")^2} = 1";}
+  },
+  area : {
+    "get": function() {return (Math.PI * this.rx * this.ry).toFixed(2);}
+  },
+  areaDetail : {
+    "get": function() {
+      return "\\begin{align}\
+      &= \\pi*(" + this.rx + ")*(" + this.ry + ")\\\\\
+      &= " + this.area + "\
+      \\end{align}";
+    }
+  }
+});
