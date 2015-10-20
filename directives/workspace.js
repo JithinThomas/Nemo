@@ -83,10 +83,6 @@ Workspace.prototype.redrawShape = function(attrs) {
 }
 
 Workspace.prototype.redrawEllipse = function(attrs) {
-
-}
-
-Workspace.prototype.redrawEllipse = function(attrs) {
   var self = this;
   var id = "s-" + attrs.id;
   $("#" + id).remove();
