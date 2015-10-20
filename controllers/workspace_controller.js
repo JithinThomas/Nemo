@@ -3,13 +3,13 @@ var colors = ["red", "green", "blue", "yellow"];
 
 myApp.controller('WorkSpaceCtrl', function($scope) {
   $scope.c = 0;
-  $scope.r = 5;
+  $scope.r = 20;
 
   $scope.shapesList = [
-    new Ellipse( $scope.c, $scope.c, $scope.r, $scope.r ),
-    new Ellipse( $scope.c, $scope.c + 10, $scope.r, $scope.r ),
-    new Ellipse( $scope.c, $scope.c + 20, $scope.r, $scope.r ),
-    new Ellipse( $scope.c, $scope.c + 30, $scope.r, $scope.r )
+    new Ellipse( $scope.c, $scope.c, $scope.r, $scope.r, { "fill": "blue" }),
+    new Ellipse( $scope.c, $scope.c + 60, $scope.r, $scope.r, { "enableRadiusChange": true }),
+    new Ellipse( $scope.c, $scope.c + 120, $scope.r, $scope.r, { "fill": "darkgreen" } ),
+    new Ellipse( $scope.c, $scope.c + 180, $scope.r, $scope.r, { "fill": "yellow", "enableRadiusChange": true } )
   ];
 
   $scope.selectedShape = $scope.shapesList[$scope.shapesList.length - 1];

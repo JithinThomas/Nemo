@@ -24,14 +24,15 @@ Shape.prototype.type = TYPE_GENERIC;
 // Ellipse class
 //==============================================
 
-function Ellipse(cx, cy, rx, ry) {
+function Ellipse(cx, cy, rx, ry, displayAttrs) {
   Shape.call(this);
 
   this.cx = cx;
   this.cy = cy;
   this.rx = rx;
   this.ry = ry;
-  this.fill = "red";
+  this.fill = getOrElse(displayAttrs, "fill", "red");
+  this.enableRadiusChange = getOrElse(displayAttrs, "enableRadiusChange", false);
 }
 
 Ellipse.prototype = Object.create(Shape.prototype);
@@ -57,3 +58,11 @@ Object.defineProperties(Ellipse.prototype, {
     }
   }
 });
+
+//==============================================
+// Helper functions
+//==============================================
+
+function getOrElse(obj, property, defaultVal) {
+  return (obj && obj[property]) ? obj[property] : defaultVal;
+}

@@ -30,3 +30,7 @@
 .selected-shape {
   stroke-width: 2px;
 }
+
+.marker {
+  fill: purple;
+}

@@ -83,6 +83,10 @@ Workspace.prototype.redrawShape = function(attrs) {
 }
 
 Workspace.prototype.redrawEllipse = function(attrs) {
+
+}
+
+Workspace.prototype.redrawEllipse = function(attrs) {
   var self = this;
   var id = "s-" + attrs.id;
   $("#" + id).remove();
@@ -107,6 +111,62 @@ Workspace.prototype.redrawEllipse = function(attrs) {
     .click(function(evt) { 
       self.shapeClickHandler(evt, ell);
     });
+
+  if (attrs.enableRadiusChange) {
+    this.enableRadiusChangeForEllipse(ell);
+  }
+}
+
+Workspace.prototype.enableRadiusChangeForEllipse = function(shape) {
+  function onStart(x, y, evt) { 
+    rx0 = shape.attrs.rx;
+    ry0 = shape.attrs.ry;
+  }
+
+  function onEnd(evt) { }
+
+  function axisChangeHandler(markerId) {
+    var sign = (markerId <= 1) ? 1 : -1;
+    var isMajorAxisChange = (markerId % 2 == 0);
+    var r0 = isMajorAxisChange ? rx0 : ry0;
+    var prop = isMajorAxisChange ? "rx" : "ry";
+
+    return function(dx, dy, x, y, evt) {
+      var n = $(shape.node);
+      var shapeId = cssIdToShapeId(n[0].id);
+      var diff = isMajorAxisChange ? dx : dy;
+
+      if ((sign * diff) > (-1 * r0)) {
+        self.scope.shapes[shapeId][prop] = r0 + (sign * diff);
+      } else {
+        self.scope.shapes[shapeId][prop] = Math.abs(diff + (sign * r0));
+      }
+      
+      self.scope.$apply();
+    }
+  }
+
+  var self = this;
+  var n = $(shape.node);
+  var shapeId = cssIdToShapeId(n[0].id);
+  var dragMarkerClass = "drag-" + shapeId;
+  $("." + dragMarkerClass).remove();
+
+  var attrs = shape.attrs;
+  var rx0 = attrs.rx;
+  var ry0 = attrs.ry;
+
+  for (var i = 0; i < 4; i++) {
+    var x = attrs.cx + attrs.rx * Math.cos((i * Math.PI) / 2);
+    var y = attrs.cy + attrs.ry * Math.sin((i * Math.PI) / 2);
+    var c = this.canvas.circle(x, y, 5);
+    $(c.node).attr({
+      "id" : "drag-s" + shapeId + "-m" + i,
+      "class": dragMarkerClass + " marker " + "c-" + i 
+    });
+
+    c.drag(axisChangeHandler(i), onStart, onEnd);
+  }
 }
 
 Workspace.prototype.shapeClickHandler = function(evt, shape) {
@@ -115,12 +175,19 @@ Workspace.prototype.shapeClickHandler = function(evt, shape) {
   var n = $(shape.node);
   n.attr({ class: "shape selected-shape" });
 
-  var cssId = n[0].id;
-  var shapeId = parseInt(cssId.substring(2));
+  var shapeId = cssIdToShapeId(n[0].id);
   this.scope.selectedShape = this.scope.shapes[shapeId];
   this.scope.$apply();
 }
 
 Workspace.prototype.removeShapes = function() {
   this.canvas.clear();
+}
+
+//===========================================
+// Helper functions
+//===========================================
+
+function cssIdToShapeId(cssId) {
+  return parseInt(cssId.substring(2));
 }

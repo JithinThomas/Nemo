@@ -12,6 +12,7 @@
     "angular-mocks": "~1.4.0",
     "html5-boilerplate": "~5.2.0",
     "bootstrap": "~3.3.5",
-    "raphael" : "~2.1.2"
+    "raphael" : "~2.1.2",
+    "d3": "~3.5.6"
   }
 }
