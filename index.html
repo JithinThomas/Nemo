@@ -103,11 +103,11 @@
                   </button>
 
                 </div>
-                <div workspace shapes="shapesList" style="border: 1px solid black; border-width: 1 0 0 0; margin-top: 7px;"></div>
-                <span math-bind="shapesList[shapesList.length - 1].equation"></span></br>
-                <span>Area = {{shapesList[shapesList.length - 1].area}}</span></br>
+                <div workspace shapes="shapesList" selected-shape="selectedShape" style="border: 1px solid black; border-width: 1 0 0 0; margin-top: 7px;"></div>
+                <span math-bind="selectedShape.equation"></span></br>
+                <span>Area = {{selectedShape.area}}</span></br>
                 <span>Area Derviation:</span></br>
-                <span math-bind="shapesList[shapesList.length - 1].areaDetail"></span></br>
+                <span math-bind="selectedShape.areaDetail"></span></br>
               </div>
             </div>
           </div>

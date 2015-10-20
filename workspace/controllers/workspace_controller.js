@@ -12,9 +12,14 @@ myApp.controller('WorkSpaceCtrl', function($scope) {
     new Ellipse( $scope.c, $scope.c + 30, $scope.r, $scope.r )
   ];
 
+  $scope.selectedShape = $scope.shapesList[$scope.shapesList.length - 1];
+
   $scope.addShape = function() {
     $scope.c += 20;
-    $scope.shapesList.push( new Ellipse( $scope.c, $scope.c, $scope.r, $scope.r ));
+
+    var e = new Ellipse( $scope.c, $scope.c, $scope.r, $scope.r );
+    $scope.shapesList.push( e );
+    $scope.selectedShape = e;
     
     var i = rand( $scope.shapesList.length );
     var s = $scope.shapesList[i];
@@ -25,8 +30,8 @@ myApp.controller('WorkSpaceCtrl', function($scope) {
   };
 
   $scope.changeShape = function() {
-    $scope.shapesList[$scope.shapesList.length - 1].cx += 20;
-    $scope.shapesList[$scope.shapesList.length - 1].rx += 20;
+    $scope.selectedShape.cx += 20;
+    $scope.selectedShape.rx += 20;
   };
 
   $scope.delShape = function() {
