@@ -8,12 +8,13 @@
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" />
     <link rel="stylesheet" href="styles/main.css">
   </head>
-  <body ng-controller="WorkSpaceCtrl" style="width: 100%; height:100%">
+  <body ng-controller="WorkspaceCtrl" style="width: 100%; height:100%">
     
     <!-- External library dependencies -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/raphael/raphael-min.js"></script>
     <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="bower_components/d3/d3.min.js"></script>
     <script src="lib/jquery-ui/jquery-ui.min.js"></script>
@@ -38,7 +39,9 @@
     <script src="directives/directives.js"></script>
     <script src="directives/workspace.js"></script>
     <script src="directives/mathbind.js"></script>
-    <script src="controllers/workspace_controller.js"></script>
+    <script src="controllers/workspace_ctrl.js"></script>
+    <script src="controllers/chapter_ctrl_1.js"></script>
+    <script src="controllers/controllers.js"></script>
 
     <nav class="navbar navbar-inverse">
       <div class="container">
@@ -53,8 +56,8 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="#dashboard">Home</a></li>
-            <li><a href="#network">Workspace</a></li>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#workspace">Workspace</a></li>
           </ul>
         </div>
       </div>
@@ -80,7 +83,7 @@
               <h3 class="panel-title">Ellipses</h3>
             </div>
             <div class="panel-body" style="min-height:inherit; height: inherit;">
-              <div id="chapter"></div>
+              <div ng-view></div>
             </div>
           </div>
         </div>
@@ -104,16 +107,17 @@
                   </button>
 
                 </div>
-                <div workspace shapes="shapesList" selected-shape="selectedShape" style="border: 1px solid black; border-width: 1 0 0 0; margin-top: 7px;"></div>
-                <span math-bind="selectedShape.equation"></span></br>
-                <span>Area = {{selectedShape.area}}</span></br>
-                <span>Area Derviation:</span></br>
-                <span math-bind="selectedShape.areaDetail"></span></br>
+                <div style="height: calc(100% - 50px)">
+                  <div workspace shapes="shapesList" selected-shape="selectedShape" style="border: 1px solid black; border-width: 1 0 0 0; margin-top: 7px;"></div>
+                  <span math-bind="selectedShape.equation"></span></br>
+                  <span>Area = {{selectedShape.area}}</span></br>
+                  <span>Area Derviation:</span></br>
+                  <span math-bind="selectedShape.areaDetail"></span></br>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        
       </div>
     </div>
   </body>

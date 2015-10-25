@@ -1,3 +1,4 @@
+'use strict';
 
 //===========================================
 // Workspace directive definition
@@ -13,8 +14,9 @@ directivesModule.directive('workspace', [function() {
     },
 
     link: function(scope, element, attrs) {
-      var w = $("#workspace").width();
-      var h = $("#workspace").height() - $("#toolbar").height();
+      var parent = element.parent();
+      var w = parent.width();
+      var h = parent.height();
 
       var ws = new Workspace(scope, element[0], w, h);
 

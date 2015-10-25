@@ -1,7 +1,22 @@
 'use strict';
 
 var myApp = angular.module('myApp', [
+  'ngRoute',
+  'controllers',
   'myApp.directives'
+]);
+
+myApp.config(['$routeProvider',
+  function($routeProvider) {
+    $routeProvider.
+      when('/', {
+        templateUrl: 'chapters/chapter-1/chapter-1.html',
+        controller: 'ChapterCntrl1'
+      }).
+      otherwise({
+        redirectTo: '/'
+      });
+  }
 ]);
 
 function enableResizingOfCols() {

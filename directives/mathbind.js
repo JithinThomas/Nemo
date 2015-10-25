@@ -1,3 +1,5 @@
+'use strict';
+
 directivesModule.directive("mathBind", function() {
     return {
         restrict: "A",

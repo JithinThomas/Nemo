@@ -1,4 +1,8 @@
 
+.panel-body {
+    /*overflow: auto;*/
+}
+
 #content {
   height: 100%;
 }
